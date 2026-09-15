@@ -1,0 +1,90 @@
+m255
+K4
+z2
+!s11f vlog 2020.4 2020.10, Oct 13 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/prj/DDS/prj/prj.sim/sim_1/behav/modelsim
+T_opt1
+!s110 1789029997
+V>gc^lPMQXb2b_OIF;BBD_3
+04 6 4 work dds_tb fast 0
+04 4 4 work glbl fast 0
+=1-902e166ad5b9-6aa26e6c-355-91cc
+o-quiet -auto_acc_if_foreign -work xil_defaultlib -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip +acc
+Z1 tCvgOpt 0
+n@_opt1
+OL;O;2020.4;71
+vdds_tb
+Z2 !s110 1789029984
+!i10b 1
+!s100 `o]PmgD47XnlS6F2mg7E42
+Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
+ImlI2z[j7fE@]eP^NiaX[k1
+R0
+w1789029945
+8../../../../../rtl/tb/dds_tb.v
+F../../../../../rtl/tb/dds_tb.v
+!i122 72
+L0 3 77
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+Z5 OL;L;2020.4;71
+r1
+!s85 0
+31
+Z6 !s108 1789029984.000000
+Z7 !s107 ../../../../../rtl/tb/dds_tb.v|../../../../../rtl/dds_top.v|
+Z8 !s90 -incr|-mfcu|-work|xil_defaultlib|../../../../../rtl/dds_top.v|../../../../../rtl/tb/dds_tb.v|
+!i113 0
+Z9 o-mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vdds_top
+R2
+!i10b 1
+!s100 eh^1XC1AQPV5hNUQnH2Xn0
+R3
+IJ]5cZ<nni1Tm39n:nN]hc2
+R0
+w1789029512
+8../../../../../rtl/dds_top.v
+F../../../../../rtl/dds_top.v
+!i122 72
+L0 1 95
+R4
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1
+vglbl
+R2
+!i10b 1
+!s100 ZHmTNm_h3dd`6mIQLzSUN3
+R3
+IJT>_:<WW6a7KP^k3<8E3=1
+R0
+w1697210495
+8glbl.v
+Fglbl.v
+!i122 73
+L0 6 78
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 glbl.v|
+!s90 -work|xil_defaultlib|glbl.v|
+!i113 0
+o-work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1

@@ -1,0 +1,80 @@
+# //  ModelSim SE-64 2020.4 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# do {dds_tb_simulate.do}
+# vsim -voptargs=""+acc"" -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -lib xil_defaultlib xil_defaultlib.dds_tb xil_defaultlib.glbl 
+# Start time: 16:46:35 on Sep 10,2026
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading work.dds_tb(fast)
+# Loading work.dds_top(fast)
+# Loading work.glbl(fast)
+# 1
+# 1
+# .main_pane.wave.interior.cs.body.pw.wf
+# .main_pane.structure.interior.cs.body.struct
+# .main_pane.objects.interior.cs.body.tree
+add wave -position insertpoint  \
+sim:/dds_tb/dds_top_u1/P_CLK_SAMPLING \
+sim:/dds_tb/dds_top_u1/P_GEN_WAVE_FRQ \
+sim:/dds_tb/dds_top_u1/P_GEN_WAVE_PHASE \
+sim:/dds_tb/dds_top_u1/P_FCW_WIDTH \
+sim:/dds_tb/dds_top_u1/P_DEFUALT_FCW \
+sim:/dds_tb/dds_top_u1/clk \
+sim:/dds_tb/dds_top_u1/rst \
+sim:/dds_tb/dds_top_u1/i_start \
+sim:/dds_tb/dds_top_u1/i_phase_accumulator \
+sim:/dds_tb/dds_top_u1/i_fcw \
+sim:/dds_tb/dds_top_u1/o_data \
+sim:/dds_tb/dds_top_u1/o_vdlid \
+sim:/dds_tb/dds_top_u1/r_bram_wave \
+sim:/dds_tb/dds_top_u1/w_addr \
+sim:/dds_tb/dds_top_u1/w_quad \
+sim:/dds_tb/dds_top_u1/r_phase \
+sim:/dds_tb/dds_top_u1/ri_start \
+sim:/dds_tb/dds_top_u1/ri_start_d \
+sim:/dds_tb/dds_top_u1/ri_phase_accumulator \
+sim:/dds_tb/dds_top_u1/ri_fcw \
+sim:/dds_tb/dds_top_u1/ro_data \
+sim:/dds_tb/dds_top_u1/ro_vdlid
+add wave -position insertpoint  \
+sim:/dds_tb/dds_top_u2/P_CLK_SAMPLING \
+sim:/dds_tb/dds_top_u2/P_GEN_WAVE_FRQ \
+sim:/dds_tb/dds_top_u2/P_GEN_WAVE_PHASE \
+sim:/dds_tb/dds_top_u2/P_FCW_WIDTH \
+sim:/dds_tb/dds_top_u2/P_DEFUALT_FCW \
+sim:/dds_tb/dds_top_u2/clk \
+sim:/dds_tb/dds_top_u2/rst \
+sim:/dds_tb/dds_top_u2/i_start \
+sim:/dds_tb/dds_top_u2/i_phase_accumulator \
+sim:/dds_tb/dds_top_u2/i_fcw \
+sim:/dds_tb/dds_top_u2/o_data \
+sim:/dds_tb/dds_top_u2/o_vdlid \
+sim:/dds_tb/dds_top_u2/r_bram_wave \
+sim:/dds_tb/dds_top_u2/w_addr \
+sim:/dds_tb/dds_top_u2/w_quad \
+sim:/dds_tb/dds_top_u2/r_phase \
+sim:/dds_tb/dds_top_u2/ri_start \
+sim:/dds_tb/dds_top_u2/ri_start_d \
+sim:/dds_tb/dds_top_u2/ri_phase_accumulator \
+sim:/dds_tb/dds_top_u2/ri_fcw \
+sim:/dds_tb/dds_top_u2/ro_data \
+sim:/dds_tb/dds_top_u2/ro_vdlid
+run
+restart
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Loading work.dds_tb(fast)
+# Loading work.dds_top(fast)
+# Loading work.glbl(fast)
+run
+# End time: 17:46:57 on Sep 10,2026, Elapsed time: 1:00:22
+# Errors: 0, Warnings: 0
