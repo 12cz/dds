@@ -1,4 +1,5 @@
 function [lfsr_new, dither_byte] = lfsr_generic(lfsr_old, nbits, tap1, tap2)
+
 % LFSR_GENERIC  通用 LFSR
 % 输入：
 %   lfsr_old - 当前状态（uint32）

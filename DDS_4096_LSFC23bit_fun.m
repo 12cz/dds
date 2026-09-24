@@ -11,14 +11,13 @@ T   = 1/f/4;%1/f /4 ; %信号持续时间,只持续1/4周期
 phi = 0             ;%初始相位
 
 % t = 0 : 1/fs : T-1/fs; %构建的时间向量
-% 中点采样：第 i 个表值放在地址区间中点 (i+0.5)/1024 * pi/2 处。
-% 10 位地址 = 每象限 1024 个区间。若用 linspace(0,1/4,1024) 则是 1023 个区间，
-% 与地址译码(1024 区间)错位，会在表值里引入 3/5/7 次谐波，把 SFDR 钉在 72dB。
-t = ((0:samp_num-1) + 0.5) / samp_num * 0.25;   % 中点相位, 单位: 归一化周期
+% 端点采样：第 i 个表值 = sin(i/1024 * pi/2)，含 sin(0)=0，保证相位 0 时输出 0。
+% 注意：端点采样下 90° 峰值点不在表内（1024 点只能覆盖 [0,90°)），
+% 反射查表时地址 addr==0 需要特判为峰值（见循环内的 tbl_peak）。
+t = (0:samp_num-1) / samp_num * 0.25;   % 端点相位, 单位: 归一化周期
 y = A * sin(2*pi*f*t + phi);
-% 不再强制 y(samp_num)=1.0：中点采样下 sin(pi/2) 峰值点本来就不在表内，
-% 反射查表天然对称；强行置 1 反而破坏首尾对称。
-yint = int32(round(y*(2^18 - 1)));   % 18 位有符号表值, 范围 0~262143 (与 FPGA ROM 数据位宽一致)
+yint = int16(round(y*(2^15 - 1)));   % 16 位有符号表值, 范围 0~32767 (与 FPGA ROM 数据位宽一致)
+tbl_peak = 2^15 - 1;                  % 90° 峰值(满幅), 反射地址=1024 时特判使用
 
 %%波形可视化
 % figure;
@@ -30,7 +29,7 @@ yint = int32(round(y*(2^18 - 1)));   % 18 位有符号表值, 范围 0~262143 (�
 % grid on;
 
 file1 = fopen('./sin_datafloat.txt','w');
-file2 = fopen('./sin_data18bit.txt','w');   % 18 位表值, 十六进制输出
+file2 = fopen('./sin_data16bit.txt','w');   % 16 位表值, 十六进制输出
 for i = 1:length(y)
     fprintf(file1,'%.6f\n',y(i));
     fprintf(file2,'%x\n',yint(i));
@@ -38,15 +37,17 @@ end
 fclose(file1);
 fclose(file2);
 
+file_test = fopen ('./test.txt','w');
+
 f_s_1               = 1 * 10^6      ;%采样频率
 % f_o                 = 100000        ;%输出频率
-f_o = f_s_1 /1000;
+f_o = f_s_1 /4000;
 phase_bits          = 48            ;%相位累加器位数
 phase_accumulator   = 0                         ;%初相位
 FCW                 = round(f_o/f_s_1 * 2^phase_bits); %频率控制字（整数）
 
 % 用 1/4 正弦表 yint(1024 点, 0~90°) 通过象限映射生成完整正弦波
-N_sample = round(f_s_1/f_o * 100);                    %绘制100个周期的波形
+N_sample = round(f_s_1/f_o * 2);                    %绘制100个周期的波形
 gen_wave = zeros(1, N_sample);
 gen_wave_taylor = zeros(1, N_sample);
 gen_wave_dither = zeros(1, N_sample);
@@ -72,20 +73,33 @@ for i = 1:N_sample
     quad = floor(phase / 2^(phase_bits-2));                          % 0~3 (高2位)
     addr = floor(mod(phase, 2^(phase_bits-2)) / 2^(addr_shift));     % 0~1023 (次高10位)
     eps_phase = mod(mod(phase, 2^(phase_bits-2)), 2^addr_shift) / 2^addr_shift;   % 低36位小数
-    switch quad
-        case 0, s=  tbl(addr + 1);
-        case 1, s =  tbl(samp_num - addr);
-        case 2, s = -tbl(addr + 1);
-        case 3, s = -tbl(samp_num - addr);
+    % 反射值 sin(90°-Θ) = cos(Θ)。端点采样下 90° 峰值点不在表内, addr==0 特判为峰值
+    if addr == 0
+        tbl_ref = tbl_peak;
+    else
+        tbl_ref = tbl(samp_num - addr + 1);
     end
     switch quad
-        case 0, c =  tbl(samp_num - addr);       % cos(Θ) = sin(90°-Θ)
+        case 0, a_addr = addr + 1;
+        case 1, a_addr = samp_num - addr + 1;
+        case 2, a_addr = addr + 1;
+        case 3, a_addr = samp_num - addr + 1;
+    end
+    fprintf(file_test,"quad %d,addr:%d,a_addr:%d\n",quad,addr,a_addr);
+    switch quad
+        case 0, s =  tbl(addr + 1);
+        case 1, s =  tbl_ref;
+        case 2, s = -tbl(addr + 1);
+        case 3, s = -tbl_ref;
+    end
+    switch quad
+        case 0, c =  tbl_ref;                    % cos(Θ) = sin(90°-Θ)
         case 1, c = -tbl(addr + 1);              % cos(90°+Θ) = -sin(Θ)
-        case 2, c = -tbl(samp_num - addr);       % cos(180°+Θ) = -cos(Θ)
+        case 2, c = -tbl_ref;                    % cos(180°+Θ) = -cos(Θ)
         case 3, c =  tbl(addr + 1);              % cos(270°+Θ) = sin(Θ)
     end
     % 一阶泰勒插值: sin(θ+εΔθ) ≈ s + c·ε·Δθ, 其中 Δθ = (π/2)/1024
-    % 只补表点之间的插值误差；表值本身必须先用中点采样保证正确。
+    % 只补表点之间的插值误差；表值本身用端点采样保证相位 0 输出 0、峰值由特判给出。
     delta = c * eps_phase * (pi/2) / samp_num;
     gen_wave(i) = s;
     gen_wave_taylor(i) = round(s + delta);
@@ -93,16 +107,21 @@ for i = 1:N_sample
     quad1 = floor(phase_dither / 2^(phase_bits-2));
     addr1 = floor(mod(phase_dither, 2^(phase_bits-2)) / 2^(addr_shift));
     eps_phase1 = mod(mod(phase_dither, 2^(phase_bits-2)), 2^addr_shift) / 2^addr_shift;
-    switch quad1
-        case 0, s1 =  tbl(addr1 + 1);
-        case 1, s1 =  tbl(samp_num - addr1);
-        case 2, s1 = -tbl(addr1 + 1);
-        case 3, s1 = -tbl(samp_num - addr1);
+    if addr1 == 0
+        tbl_ref1 = tbl_peak;
+    else
+        tbl_ref1 = tbl(samp_num - addr1 + 1);
     end
     switch quad1
-        case 0, c1 =  tbl(samp_num - addr1);
+        case 0, s1 =  tbl(addr1 + 1);
+        case 1, s1 =  tbl_ref1;
+        case 2, s1 = -tbl(addr1 + 1);
+        case 3, s1 = -tbl_ref1;
+    end
+    switch quad1
+        case 0, c1 =  tbl_ref1;
         case 1, c1 = -tbl(addr1 + 1);
-        case 2, c1 = -tbl(samp_num - addr1);
+        case 2, c1 = -tbl_ref1;
         case 3, c1 =  tbl(addr1 + 1);
     end
     gen_wave_dither(i) = s1;
@@ -116,7 +135,7 @@ for i = 1:N_sample
     phase_dither = mod(phase + dither_val, 2^phase_bits);
 
 end
-
+fclose(file_test);
 
 diff_cnt = sum(gen_wave ~= gen_wave_dither);
 fprintf('两通道不同的采样点数 = %d / %d\n', diff_cnt, N_sample);

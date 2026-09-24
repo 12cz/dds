@@ -1,0 +1,19 @@
+# MATLAB
+*.asv
+*.m~
+
+# Excel 临时文件
+~$*.xlsx
+
+# Vivado / Quartus 工程生成物（按你实际工具调整）
+prj/**/runs/
+prj/**/.Xil/
+prj/**/xsim.dir/
+prj/**/*.jou
+prj/**/*.log
+prj/**/*.str
+prj/**/*.zip
+
+# 系统文件
+.DS_Store
+Thumbs.db
