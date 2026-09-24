@@ -1,17 +1,15 @@
 //======================================================================
-// 相位抖动 DDS（1/4 端点采样正弦表 + 相位截断抖动, 无泰勒插值）
+// 普通 DDS（1/4 端点采样正弦表, 无抖动无泰勒, 作为对比基准）
 // 表  : 1024x16 ROM, tbl[i] = sin(i/1024*pi/2), i=0..1023 (含0, 不含90°峰值)
 // 相位: P_FCW_WIDTH 位累加器 -> 高2位象限 + 10位地址
-// 抖动: 23 位 LFSR(x^23+x^18+1) 高8位 -> (byte-128)<<28 = ±0.5 地址 LSB
 // 流水: 2 级 (ROM读 -> 符号化输出)
 //======================================================================
-module dds_with_dither
+module dds
 #(
     parameter   P_CLK_SAMPLING   = 100000,             // 采样时钟(Hz)
     parameter   P_GEN_WAVE_FRQ   = 250,                // 默认输出频率(Hz)
     parameter   P_GEN_WAVE_PHASE = 0,                  // 默认初始相位
     parameter   P_FCW_WIDTH      = 48,                 // 相位累加器位宽
-    parameter   P_DITHER_EN      = 1,                  // 1=使能相位抖动
     parameter   P_INIT_FILE      = "sin_data16bit.txt" // ROM 初始化文件
 )
 (
@@ -26,13 +24,8 @@ module dds_with_dither
 );
 
     //---------------- 参数 ----------------
-    localparam P_LUT_ADDR_WIDTH = 10;                  // 1/4 表地址位宽
-    localparam P_DATA_WIDTH     = 16;                  // 表值位宽
-    localparam P_LFSR_WIDTH     = 23;                  // LFSR 位宽
-    localparam P_LFSR_TAP1      = 23;                  // x^23
-    localparam P_LFSR_TAP2      = 18;                  // x^18
-    localparam P_DITHER_WIDTH   = 8;                   // 抖动位宽(取 LFSR 高 8 位)
-    localparam P_ADDR_SHIFT     = P_FCW_WIDTH - (P_LUT_ADDR_WIDTH + 2);  // =36, 地址 LSB 位置
+    localparam P_LUT_ADDR_WIDTH = 10;                 // 1/4 表地址位宽
+    localparam P_DATA_WIDTH     = 16;                 // 表值位宽
     // 90° 峰值 = 2^15-1 = 16'h7FFF (端点采样表中不含峰值, 反射时特判)
     localparam [P_DATA_WIDTH-1:0] P_PEAK = {1'b0,{(P_DATA_WIDTH-1){1'b1}}};
     localparam real P_DEFAULT_FCW = P_GEN_WAVE_FRQ * (2.0**P_FCW_WIDTH) / P_CLK_SAMPLING;
@@ -60,27 +53,11 @@ module dds_with_dither
         end
     end
 
-    //---------------- LFSR(x^23 + x^18 + 1) ----------------
-    reg [P_LFSR_WIDTH-1:0] r_lfsr;
-    wire w_lfsr_fb = r_lfsr[P_LFSR_TAP1-1] ^ r_lfsr[P_LFSR_TAP2-1];
-    always @(posedge i_clk or posedge i_rst) begin
-        if (i_rst)      r_lfsr <= {{(P_LFSR_WIDTH-1){1'b0}},1'b1};  // 非零种子 1
-        else            r_lfsr <= {r_lfsr[P_LFSR_WIDTH-2:0], w_lfsr_fb};
-    end
-
-    //---------------- 相位抖动注入 ----------------
-    // dither = (dither_byte-128) << (P_ADDR_SHIFT-P_DITHER_WIDTH) = ±0.5 地址 LSB
-    wire [P_DITHER_WIDTH-1:0] w_dither_byte = r_lfsr[P_LFSR_WIDTH-1 : P_LFSR_WIDTH-P_DITHER_WIDTH];
-    wire signed [P_DITHER_WIDTH:0] w_dither_c = $signed({1'b0, w_dither_byte}) - $signed(2**(P_DITHER_WIDTH-1));
-    wire [P_FCW_WIDTH-1:0]  w_dither = {{(P_FCW_WIDTH-1-P_DITHER_WIDTH){w_dither_c[P_DITHER_WIDTH]}}, w_dither_c} << (P_ADDR_SHIFT - P_DITHER_WIDTH);
-    wire [P_FCW_WIDTH-1:0]  w_phase_dither = P_DITHER_EN ? (r_phase + w_dither) : r_phase;
-
-    //---------------- 相位译码(抖动后) ----------------
-    wire [1:0]                  w_quad     = w_phase_dither[P_FCW_WIDTH-1 : P_FCW_WIDTH-2];
-    wire [P_LUT_ADDR_WIDTH-1:0] w_addr     = w_phase_dither[P_FCW_WIDTH-3 : P_FCW_WIDTH-2-P_LUT_ADDR_WIDTH];
+    //---------------- 相位译码 ----------------
+    wire [1:0]                  w_quad     = r_phase[P_FCW_WIDTH-1 : P_FCW_WIDTH-2];
+    wire [P_LUT_ADDR_WIDTH-1:0] w_addr     = r_phase[P_FCW_WIDTH-3 : P_FCW_WIDTH-2-P_LUT_ADDR_WIDTH];
     wire [P_LUT_ADDR_WIDTH:0]   w_addr_ref = {1'b0, ~w_addr} + 1'b1;   // = 1024-addr
     wire                        w_is_peak  = (w_addr == {P_LUT_ADDR_WIDTH{1'b0}});
-
     // 象限 0/2 读正向地址, 象限 1/3 读反射地址(addr==0 特判峰值)
     wire [P_LUT_ADDR_WIDTH-1:0] w_rom_addr = w_quad[0] ? w_addr_ref[P_LUT_ADDR_WIDTH-1:0] : w_addr;
     wire                        w_use_peak = w_quad[0] & w_is_peak;

@@ -13,10 +13,12 @@
 # //
 # do {dds_tb_simulate.do}
 # vsim -voptargs=""+acc"" -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -lib xil_defaultlib xil_defaultlib.dds_tb xil_defaultlib.glbl 
-# Start time: 16:46:35 on Sep 10,2026
+# Start time: 15:47:37 on Sep 24,2026
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # Loading work.dds_tb(fast)
-# Loading work.dds_top(fast)
+# Loading work.dds(fast)
+# Loading work.dds_with_dither(fast)
+# Loading work.dds_with_taylor(fast)
 # Loading work.glbl(fast)
 # 1
 # 1
@@ -24,57 +26,348 @@
 # .main_pane.structure.interior.cs.body.struct
 # .main_pane.objects.interior.cs.body.tree
 add wave -position insertpoint  \
-sim:/dds_tb/dds_top_u1/P_CLK_SAMPLING \
-sim:/dds_tb/dds_top_u1/P_GEN_WAVE_FRQ \
-sim:/dds_tb/dds_top_u1/P_GEN_WAVE_PHASE \
-sim:/dds_tb/dds_top_u1/P_FCW_WIDTH \
-sim:/dds_tb/dds_top_u1/P_DEFUALT_FCW \
-sim:/dds_tb/dds_top_u1/clk \
-sim:/dds_tb/dds_top_u1/rst \
-sim:/dds_tb/dds_top_u1/i_start \
-sim:/dds_tb/dds_top_u1/i_phase_accumulator \
-sim:/dds_tb/dds_top_u1/i_fcw \
-sim:/dds_tb/dds_top_u1/o_data \
-sim:/dds_tb/dds_top_u1/o_vdlid \
-sim:/dds_tb/dds_top_u1/r_bram_wave \
-sim:/dds_tb/dds_top_u1/w_addr \
-sim:/dds_tb/dds_top_u1/w_quad \
-sim:/dds_tb/dds_top_u1/r_phase \
-sim:/dds_tb/dds_top_u1/ri_start \
-sim:/dds_tb/dds_top_u1/ri_start_d \
-sim:/dds_tb/dds_top_u1/ri_phase_accumulator \
-sim:/dds_tb/dds_top_u1/ri_fcw \
-sim:/dds_tb/dds_top_u1/ro_data \
-sim:/dds_tb/dds_top_u1/ro_vdlid
+sim:/dds_tb/u_dds/P_CLK_SAMPLING \
+sim:/dds_tb/u_dds/P_GEN_WAVE_FRQ \
+sim:/dds_tb/u_dds/P_GEN_WAVE_PHASE \
+sim:/dds_tb/u_dds/P_FCW_WIDTH \
+sim:/dds_tb/u_dds/P_INIT_FILE \
+sim:/dds_tb/u_dds/P_LUT_ADDR_WIDTH \
+sim:/dds_tb/u_dds/P_DATA_WIDTH \
+sim:/dds_tb/u_dds/P_PEAK \
+sim:/dds_tb/u_dds/P_DEFAULT_FCW \
+sim:/dds_tb/u_dds/i_clk \
+sim:/dds_tb/u_dds/i_rst \
+sim:/dds_tb/u_dds/i_start \
+sim:/dds_tb/u_dds/i_phase_accumulator \
+sim:/dds_tb/u_dds/i_fcw \
+sim:/dds_tb/u_dds/o_data \
+sim:/dds_tb/u_dds/o_vdlid \
+sim:/dds_tb/u_dds/r_bram_wave \
+sim:/dds_tb/u_dds/r_phase \
+sim:/dds_tb/u_dds/r_fcw \
+sim:/dds_tb/u_dds/r_start_d1 \
+sim:/dds_tb/u_dds/w_start_pulse \
+sim:/dds_tb/u_dds/w_quad \
+sim:/dds_tb/u_dds/w_addr \
+sim:/dds_tb/u_dds/w_addr_ref \
+sim:/dds_tb/u_dds/w_is_peak \
+sim:/dds_tb/u_dds/w_rom_addr \
+sim:/dds_tb/u_dds/w_use_peak \
+sim:/dds_tb/u_dds/r_sin_mag \
+sim:/dds_tb/u_dds/r_quad \
+sim:/dds_tb/u_dds/ro_data \
+sim:/dds_tb/u_dds/r_valid \
+sim:/dds_tb/u_dds/r_valid_d
 add wave -position insertpoint  \
-sim:/dds_tb/dds_top_u2/P_CLK_SAMPLING \
-sim:/dds_tb/dds_top_u2/P_GEN_WAVE_FRQ \
-sim:/dds_tb/dds_top_u2/P_GEN_WAVE_PHASE \
-sim:/dds_tb/dds_top_u2/P_FCW_WIDTH \
-sim:/dds_tb/dds_top_u2/P_DEFUALT_FCW \
-sim:/dds_tb/dds_top_u2/clk \
-sim:/dds_tb/dds_top_u2/rst \
-sim:/dds_tb/dds_top_u2/i_start \
-sim:/dds_tb/dds_top_u2/i_phase_accumulator \
-sim:/dds_tb/dds_top_u2/i_fcw \
-sim:/dds_tb/dds_top_u2/o_data \
-sim:/dds_tb/dds_top_u2/o_vdlid \
-sim:/dds_tb/dds_top_u2/r_bram_wave \
-sim:/dds_tb/dds_top_u2/w_addr \
-sim:/dds_tb/dds_top_u2/w_quad \
-sim:/dds_tb/dds_top_u2/r_phase \
-sim:/dds_tb/dds_top_u2/ri_start \
-sim:/dds_tb/dds_top_u2/ri_start_d \
-sim:/dds_tb/dds_top_u2/ri_phase_accumulator \
-sim:/dds_tb/dds_top_u2/ri_fcw \
-sim:/dds_tb/dds_top_u2/ro_data \
-sim:/dds_tb/dds_top_u2/ro_vdlid
-run
+sim:/dds_tb/u_dither/P_CLK_SAMPLING \
+sim:/dds_tb/u_dither/P_GEN_WAVE_FRQ \
+sim:/dds_tb/u_dither/P_GEN_WAVE_PHASE \
+sim:/dds_tb/u_dither/P_FCW_WIDTH \
+sim:/dds_tb/u_dither/P_DITHER_EN \
+sim:/dds_tb/u_dither/P_INIT_FILE \
+sim:/dds_tb/u_dither/P_LUT_ADDR_WIDTH \
+sim:/dds_tb/u_dither/P_DATA_WIDTH \
+sim:/dds_tb/u_dither/P_LFSR_WIDTH \
+sim:/dds_tb/u_dither/P_LFSR_TAP1 \
+sim:/dds_tb/u_dither/P_LFSR_TAP2 \
+sim:/dds_tb/u_dither/P_DITHER_WIDTH \
+sim:/dds_tb/u_dither/P_ADDR_SHIFT \
+sim:/dds_tb/u_dither/P_PEAK \
+sim:/dds_tb/u_dither/P_DEFAULT_FCW \
+sim:/dds_tb/u_dither/i_clk \
+sim:/dds_tb/u_dither/i_rst \
+sim:/dds_tb/u_dither/i_start \
+sim:/dds_tb/u_dither/i_phase_accumulator \
+sim:/dds_tb/u_dither/i_fcw \
+sim:/dds_tb/u_dither/o_data \
+sim:/dds_tb/u_dither/o_vdlid \
+sim:/dds_tb/u_dither/r_bram_wave \
+sim:/dds_tb/u_dither/r_phase \
+sim:/dds_tb/u_dither/r_fcw \
+sim:/dds_tb/u_dither/r_start_d1 \
+sim:/dds_tb/u_dither/w_start_pulse \
+sim:/dds_tb/u_dither/r_lfsr \
+sim:/dds_tb/u_dither/w_lfsr_fb \
+sim:/dds_tb/u_dither/w_dither_byte \
+sim:/dds_tb/u_dither/w_dither_c \
+sim:/dds_tb/u_dither/w_dither \
+sim:/dds_tb/u_dither/w_phase_dither \
+sim:/dds_tb/u_dither/w_quad \
+sim:/dds_tb/u_dither/w_addr \
+sim:/dds_tb/u_dither/w_addr_ref \
+sim:/dds_tb/u_dither/w_is_peak \
+sim:/dds_tb/u_dither/w_rom_addr \
+sim:/dds_tb/u_dither/w_use_peak \
+sim:/dds_tb/u_dither/r_sin_mag \
+sim:/dds_tb/u_dither/r_quad \
+sim:/dds_tb/u_dither/ro_data \
+sim:/dds_tb/u_dither/r_valid \
+sim:/dds_tb/u_dither/r_valid_d
+add wave -position insertpoint  \
+sim:/dds_tb/u_taylor/P_CLK_SAMPLING \
+sim:/dds_tb/u_taylor/P_GEN_WAVE_FRQ \
+sim:/dds_tb/u_taylor/P_GEN_WAVE_PHASE \
+sim:/dds_tb/u_taylor/P_FCW_WIDTH \
+sim:/dds_tb/u_taylor/P_TAYLOR_EN \
+sim:/dds_tb/u_taylor/P_INIT_FILE \
+sim:/dds_tb/u_taylor/P_LUT_ADDR_WIDTH \
+sim:/dds_tb/u_taylor/P_DATA_WIDTH \
+sim:/dds_tb/u_taylor/P_EPS_WIDTH \
+sim:/dds_tb/u_taylor/P_PEAK \
+sim:/dds_tb/u_taylor/TAYLOR_K \
+sim:/dds_tb/u_taylor/TAYLOR_SHIFT \
+sim:/dds_tb/u_taylor/P_DEFAULT_FCW \
+sim:/dds_tb/u_taylor/i_clk \
+sim:/dds_tb/u_taylor/i_rst \
+sim:/dds_tb/u_taylor/i_start \
+sim:/dds_tb/u_taylor/i_phase_accumulator \
+sim:/dds_tb/u_taylor/i_fcw \
+sim:/dds_tb/u_taylor/o_data \
+sim:/dds_tb/u_taylor/o_vdlid \
+sim:/dds_tb/u_taylor/r_bram_wave \
+sim:/dds_tb/u_taylor/r_phase \
+sim:/dds_tb/u_taylor/r_fcw \
+sim:/dds_tb/u_taylor/r_start_d1 \
+sim:/dds_tb/u_taylor/w_start_pulse \
+sim:/dds_tb/u_taylor/w_quad \
+sim:/dds_tb/u_taylor/w_addr \
+sim:/dds_tb/u_taylor/w_eps \
+sim:/dds_tb/u_taylor/w_addr_ref \
+sim:/dds_tb/u_taylor/w_is_peak \
+sim:/dds_tb/u_taylor/r_sin_mag \
+sim:/dds_tb/u_taylor/r_cos_mag \
+sim:/dds_tb/u_taylor/r_eps \
+sim:/dds_tb/u_taylor/r_quad \
+sim:/dds_tb/u_taylor/w_sin_s \
+sim:/dds_tb/u_taylor/w_cos_s \
+sim:/dds_tb/u_taylor/w_eps_s \
+sim:/dds_tb/u_taylor/w_mul1 \
+sim:/dds_tb/u_taylor/w_mul2 \
+sim:/dds_tb/u_taylor/w_delta \
+sim:/dds_tb/u_taylor/r_sin_s \
+sim:/dds_tb/u_taylor/r_delta \
+sim:/dds_tb/u_taylor/ro_data \
+sim:/dds_tb/u_taylor/r_valid \
+sim:/dds_tb/u_taylor/r_valid_d
 restart
 # ** Note: (vsim-8009) Loading existing optimized design _opt1
 # Loading work.dds_tb(fast)
-# Loading work.dds_top(fast)
+# Loading work.dds(fast)
+# Loading work.dds_with_dither(fast)
+# Loading work.dds_with_taylor(fast)
+# Loading work.glbl(fast)
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf D:/prj/DDS/prj/prj.sim/sim_1/behav/modelsim/wave.do
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run 10us
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run 100 us
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:54:31 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds.v 
+# -- Compiling module dds
+# 
+# Top level modules:
+# 	dds
+# End time: 15:54:31 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/tb/dds_tb.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:54:31 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/tb/dds_tb.v 
+# -- Compiling module dds_tb
+# 
+# Top level modules:
+# 	dds_tb
+# End time: 15:54:31 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_top.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:54:32 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_top.v 
+# ** Error: (vlog-7) Failed to open design unit file "D:/prj/DDS/rtl/dds_top.v" in read mode.
+# No such file or directory. (errno = ENOENT)
+# End time: 15:54:32 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# D:/sim_tools/modelsim2020.4/win64/vlog failed.
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_dither.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:54:32 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_dither.v 
+# -- Compiling module dds_with_dither
+# 
+# Top level modules:
+# 	dds_with_dither
+# End time: 15:54:32 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_taylor.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:54:32 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_taylor.v 
+# -- Compiling module dds_with_taylor
+# 
+# Top level modules:
+# 	dds_with_taylor
+# End time: 15:54:32 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading work.dds_tb(fast)
+# Loading work.dds(fast)
+# Loading work.dds_with_dither(fast)
+# Loading work.dds_with_taylor(fast)
 # Loading work.glbl(fast)
 run
-# End time: 17:46:57 on Sep 10,2026, Elapsed time: 1:00:22
+run 10 us
+run 10 us
+# 完成: 每通道 10000 个采样(10周期)已写入 dds_data.txt/dither_data.txt/taylor_data.txt
+# ** Note: $finish    : D:/prj/DDS/rtl/tb/dds_tb.v(57)
+#    Time: 20151 ns  Iteration: 1  Instance: /dds_tb
+# 1
+# Break in Module dds_tb at D:/prj/DDS/rtl/tb/dds_tb.v line 57
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:59:28 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds.v 
+# -- Compiling module dds
+# 
+# Top level modules:
+# 	dds
+# End time: 15:59:28 on Sep 24,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/tb/dds_tb.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:59:28 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/tb/dds_tb.v 
+# -- Compiling module dds_tb
+# 
+# Top level modules:
+# 	dds_tb
+# End time: 15:59:28 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_top.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:59:28 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_top.v 
+# ** Error: (vlog-7) Failed to open design unit file "D:/prj/DDS/rtl/dds_top.v" in read mode.
+# No such file or directory. (errno = ENOENT)
+# End time: 15:59:28 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# D:/sim_tools/modelsim2020.4/win64/vlog failed.
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_dither.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:59:28 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_dither.v 
+# -- Compiling module dds_with_dither
+# 
+# Top level modules:
+# 	dds_with_dither
+# End time: 15:59:28 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_taylor.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 15:59:28 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_taylor.v 
+# -- Compiling module dds_with_taylor
+# 
+# Top level modules:
+# 	dds_with_taylor
+# End time: 15:59:28 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading work.dds_tb(fast)
+# Loading work.dds(fast)
+# Loading work.dds_with_dither(fast)
+# Loading work.dds_with_taylor(fast)
+# Loading work.glbl(fast)
+run
+# 完成: 每通道 10000 个采样(10周期)已写入 dds_data.txt/dither_data.txt/taylor_data.txt
+# ** Note: $finish    : D:/prj/DDS/rtl/tb/dds_tb.v(57)
+#    Time: 20151 ns  Iteration: 1  Instance: /dds_tb
+# 1
+# Break in Module dds_tb at D:/prj/DDS/rtl/tb/dds_tb.v line 57
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 16:17:56 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds.v 
+# -- Compiling module dds
+# 
+# Top level modules:
+# 	dds
+# End time: 16:17:56 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/tb/dds_tb.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 16:17:57 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/tb/dds_tb.v 
+# -- Compiling module dds_tb
+# 
+# Top level modules:
+# 	dds_tb
+# End time: 16:17:57 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_top.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 16:17:57 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_top.v 
+# ** Error: (vlog-7) Failed to open design unit file "D:/prj/DDS/rtl/dds_top.v" in read mode.
+# No such file or directory. (errno = ENOENT)
+# End time: 16:17:57 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# D:/sim_tools/modelsim2020.4/win64/vlog failed.
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_dither.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 16:17:57 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_dither.v 
+# -- Compiling module dds_with_dither
+# 
+# Top level modules:
+# 	dds_with_dither
+# End time: 16:17:57 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_taylor.v
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 16:17:57 on Sep 24,2026
+# vlog -reportprogress 300 -mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact D:/prj/DDS/rtl/dds_with_taylor.v 
+# -- Compiling module dds_with_taylor
+# 
+# Top level modules:
+# 	dds_with_taylor
+# End time: 16:17:57 on Sep 24,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading work.dds_tb(fast)
+# Loading work.dds(fast)
+# Loading work.dds_with_dither(fast)
+# Loading work.dds_with_taylor(fast)
+# Loading work.glbl(fast)
+run
+# 完成: 每通道 10000 个采样(10周期)已写入 dds_data.txt/dither_data.txt/taylor_data.txt
+# ** Note: $finish    : D:/prj/DDS/rtl/tb/dds_tb.v(57)
+#    Time: 20151 ns  Iteration: 1  Instance: /dds_tb
+# 1
+# Break in Module dds_tb at D:/prj/DDS/rtl/tb/dds_tb.v line 57

@@ -10,43 +10,66 @@ z2
 cModel Technology
 Z0 dD:/prj/DDS/prj/prj.sim/sim_1/behav/modelsim
 T_opt1
-!s110 1789029997
-V>gc^lPMQXb2b_OIF;BBD_3
+!s110 1790237889
+VK^mn4V3_bc78bXY1BcCkz1
 04 6 4 work dds_tb fast 0
 04 4 4 work glbl fast 0
-=1-902e166ad5b9-6aa26e6c-355-91cc
+=5-902e166ad5b9-6ab4dcc0-3cf-ce0
 o-quiet -auto_acc_if_foreign -work xil_defaultlib -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip +acc
 Z1 tCvgOpt 0
 n@_opt1
 OL;O;2020.4;71
-vdds_tb
-Z2 !s110 1789029984
+vdds
+!s110 1790237876
 !i10b 1
-!s100 `o]PmgD47XnlS6F2mg7E42
-Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
-ImlI2z[j7fE@]eP^NiaX[k1
+!s100 OkeH?8=iQ7a8IKMhS1k@f3
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+InZX2e[8a:9@C]2=;`cWfI2
 R0
-w1789029945
-8../../../../../rtl/tb/dds_tb.v
-F../../../../../rtl/tb/dds_tb.v
-!i122 72
-L0 3 77
+Z3 w1790237755
+8D:/prj/DDS/rtl/dds.v
+FD:/prj/DDS/rtl/dds.v
+!i122 84
+L0 7 98
 Z4 VDg1SIo80bB@j0V0VzS_@n1
 Z5 OL;L;2020.4;71
 r1
 !s85 0
 31
-Z6 !s108 1789029984.000000
-Z7 !s107 ../../../../../rtl/tb/dds_tb.v|../../../../../rtl/dds_top.v|
-Z8 !s90 -incr|-mfcu|-work|xil_defaultlib|../../../../../rtl/dds_top.v|../../../../../rtl/tb/dds_tb.v|
+!s108 1790237876.000000
+!s107 D:/prj/DDS/rtl/dds.v|
+!s90 -reportprogress|300|-mfcu|-work|xil_defaultlib|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|D:/prj/DDS/rtl/dds.v|
 !i113 0
-Z9 o-mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z6 o-mfcu -work xil_defaultlib -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vdds_tb
+Z7 !s110 1790237877
+!i10b 1
+!s100 SMgfOfJo9h?2172eIWSU_3
+R2
+IDzU]6OQT[ZY>OM5Ho7mMd3
+R0
+w1790236876
+8D:/prj/DDS/rtl/tb/dds_tb.v
+FD:/prj/DDS/rtl/tb/dds_tb.v
+!i122 85
+L0 3 112
+R4
+R5
+r1
+!s85 0
+31
+Z8 !s108 1790237877.000000
+!s107 D:/prj/DDS/rtl/tb/dds_tb.v|
+!s90 -reportprogress|300|-mfcu|-work|xil_defaultlib|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|D:/prj/DDS/rtl/tb/dds_tb.v|
+!i113 0
+R6
 R1
 vdds_top
-R2
+!s110 1789029984
 !i10b 1
 !s100 eh^1XC1AQPV5hNUQnH2Xn0
-R3
+R2
 IJ]5cZ<nni1Tm39n:nN]hc2
 R0
 w1789029512
@@ -59,30 +82,76 @@ R5
 r1
 !s85 0
 31
-R6
-R7
-R8
+!s108 1789029984.000000
+!s107 ../../../../../rtl/tb/dds_tb.v|../../../../../rtl/dds_top.v|
+!s90 -incr|-mfcu|-work|xil_defaultlib|../../../../../rtl/dds_top.v|../../../../../rtl/tb/dds_tb.v|
 !i113 0
-R9
+R6
+R1
+vdds_with_dither
+R7
+!i10b 1
+!s100 _HY:DUIUHN^naXLNQS>k?3
+R2
+IEHO`WAX^ab3BVA^O@M=W82
+R0
+R3
+8D:/prj/DDS/rtl/dds_with_dither.v
+FD:/prj/DDS/rtl/dds_with_dither.v
+!i122 86
+L0 8 120
+R4
+R5
+r1
+!s85 0
+31
+R8
+!s107 D:/prj/DDS/rtl/dds_with_dither.v|
+!s90 -reportprogress|300|-mfcu|-work|xil_defaultlib|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|D:/prj/DDS/rtl/dds_with_dither.v|
+!i113 0
+R6
+R1
+vdds_with_taylor
+R7
+!i10b 1
+!s100 0AUTk7U<k]9lZa9a=H3Zi3
+R2
+IBZ0D]WcS4;An?^58@[6a>0
+R0
+w1790146394
+8D:/prj/DDS/rtl/dds_with_taylor.v
+FD:/prj/DDS/rtl/dds_with_taylor.v
+!i122 87
+L0 8 137
+R4
+R5
+r1
+!s85 0
+31
+R8
+!s107 D:/prj/DDS/rtl/dds_with_taylor.v|
+!s90 -reportprogress|300|-mfcu|-work|xil_defaultlib|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|D:/prj/DDS/rtl/dds_with_taylor.v|
+!i113 0
+R6
 R1
 vglbl
-R2
+!s110 1790236041
 !i10b 1
 !s100 ZHmTNm_h3dd`6mIQLzSUN3
-R3
+R2
 IJT>_:<WW6a7KP^k3<8E3=1
 R0
 w1697210495
 8glbl.v
 Fglbl.v
-!i122 73
+!i122 75
 L0 6 78
 R4
 R5
 r1
 !s85 0
 31
-R6
+!s108 1790236041.000000
 !s107 glbl.v|
 !s90 -work|xil_defaultlib|glbl.v|
 !i113 0

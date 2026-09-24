@@ -41,13 +41,13 @@ file_test = fopen ('./test.txt','w');
 
 f_s_1               = 1 * 10^6      ;%采样频率
 % f_o                 = 100000        ;%输出频率
-f_o = f_s_1 /4000;
+f_o = f_s_1 /1000;
 phase_bits          = 48            ;%相位累加器位数
 phase_accumulator   = 0                         ;%初相位
 FCW                 = round(f_o/f_s_1 * 2^phase_bits); %频率控制字（整数）
 
 % 用 1/4 正弦表 yint(1024 点, 0~90°) 通过象限映射生成完整正弦波
-N_sample = round(f_s_1/f_o * 2);                    %绘制100个周期的波形
+N_sample = round(f_s_1/f_o * 10);                    %绘制100个周期的波形
 gen_wave = zeros(1, N_sample);
 gen_wave_taylor = zeros(1, N_sample);
 gen_wave_dither = zeros(1, N_sample);
